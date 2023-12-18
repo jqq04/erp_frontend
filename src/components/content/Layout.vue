@@ -240,13 +240,11 @@
             :content="getUserRole"
             placement="right"
         >
-          <div class="logout-name">{{ getUsername() }}</div>
+          <div class="logout-name" @click="logout()">{{ getUsername() }}</div>
         </el-tooltip>
-        <div class="logout" @click="logout()">退出登录</div>
       </div>
       <div class="check-in">
-        <div class="check-in-record" id="checkInRecord" style="background-color:red;border-color:red">{{ checkInfo }}</div>
-        <div class="check-in-button" @click="check()">点击打卡</div>
+        <div class="check-in-record" id="checkInRecord" style="background-color:red;border-color:red" @click="check()">{{ checkInfo }}</div>
       </div>
     </el-aside>
 
@@ -270,7 +268,7 @@ export default {
       ROLE: ROLE,
       PATH: PATH,
       hasChecked: '',
-      checkInfo: "未打卡"
+      checkInfo: "点击打卡"
     };
   },
   async mounted() {

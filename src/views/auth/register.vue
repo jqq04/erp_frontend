@@ -3,7 +3,7 @@
     <div class="register">
       <div class="title">NJU ERP系统</div>
       <div class="form">
-        <el-form :model="userInfo" :label-width="'100px'">
+        <el-form :model="userInfo" :label-width="'100px'" @keyup.enter.native="registerThis">
           <el-form-item label="用户名：">
             <el-input v-model="userInfo.name" placeholder="请输入用户名"></el-input>
           </el-form-item>

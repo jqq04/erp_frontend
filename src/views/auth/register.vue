@@ -57,8 +57,7 @@ export default {
         });
         this.userInfo.password1 = "";
         this.userInfo.password2 = "";
-      }
-      if (this.userInfo.password1 !== this.userInfo.password2) {
+      } else if (this.userInfo.password1 !== this.userInfo.password2) {
         this.$message({
           type: 'error',
           message: '两次密码输入不一致！'

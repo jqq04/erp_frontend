@@ -2,8 +2,12 @@
   <Layout>
     <Title title="年终奖管理"></Title>
     <div style="margin-top: 10px">
+      <div style="display: flex; align-items: center; margin-bottom: 1%">
+        <el-input placeholder="请输入员工ID或姓名" v-model="searchText" @keyup.native.enter="searchEmployee"></el-input>
+        <el-button @click="searchEmployee" >搜索</el-button>
+      </div>
       <el-table
-          :data="employeeList"
+          :data="filteredEmployeeList"
           stripe
           style="width: 100%"
           :header-cell-style="{'text-align':'center'}"
@@ -47,7 +51,8 @@
         width="40%">
       <div style="width: 90%; margin: 0 auto">
         <label>请输入年终奖金额:</label><br>
-        <el-input type="text"  v-model.lazy="finalBonus"></el-input><br>
+        <el-input type="text" v-model.lazy="finalBonus"></el-input>
+        <br>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submit">提交修改</el-button>
@@ -70,22 +75,25 @@ export default {
   data() {
     return {
       employeeList: [],
+      filteredEmployeeList: [],
       id:'',
       finalBonus:'',
       dialogVisible: false,
+      searchText: ''
     }
   },
   mounted() {
     getAllBonus().then(res => {
-      this.employeeList=res.result
+      this.employeeList = res.result
+      this.filteredEmployeeList = res.result;
     })
   },
   methods: {
-    changeBonus(id){
-      this.id=id
-      this.dialogVisible=true
+    changeBonus(id) {
+      this.id = id
+      this.dialogVisible = true
     },
-    submit(){
+    submit() {
       let config = {
         params: {
           id: this.id,
@@ -93,10 +101,9 @@ export default {
         }
       }
       console.log(config)
-      if(this.finalBonus<0){
+      if (this.finalBonus < 0) {
         alert("年终奖不能为负！")
-      }
-      else {
+      } else {
         changeBonus(config).then(res => {
           this.$message({
             type: "success",
@@ -104,11 +111,23 @@ export default {
           });
           this.dialogVisible = false;
           getAllBonus().then(res => {
-            this.employeeList=res.result
+            this.employeeList = res.result
           })
         })
       }
     },
+    searchEmployee() {
+      if (this.searchText === '') {
+        this.filteredEmployeeList = this.employeeList;
+      } else {
+        console.log(this.searchText)
+        console.log(this.employeeList)
+        this.filteredEmployeeList = this.employeeList.filter(employee =>
+            employee.employeeId.includes(this.searchText) ||
+            employee.name.includes(this.searchText)
+        );
+      }
+    }
   }
 }
 </script>

@@ -9,7 +9,7 @@
         :expand-on-click-node="false"
         :highlight-current="true">
         <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ data.name }}</span>
+          <span style="margin-right: 1%">{{ data.name }}</span>
           <span>
             <el-button
               type="text"
@@ -260,8 +260,12 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   font-size: 16px;
   padding-right: 8px;
+}
+
+.el-button {
+  color: #090909;
 }
 </style>

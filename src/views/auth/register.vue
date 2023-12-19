@@ -18,7 +18,7 @@
             </el-select>
           </el-form-item>
           <el-form-item label="密码：">
-            <el-input v-model="userInfo.password1" placeholder="请输入密码" type="password"></el-input>
+            <el-input v-model="userInfo.password1" placeholder="请输入密码" type="password" ></el-input>
           </el-form-item>
           <el-form-item label="确认密码：">
             <el-input v-model="userInfo.password2" placeholder="请输入密码" type="password"></el-input>
@@ -50,6 +50,14 @@ export default {
   },
   methods: {
     registerThis() {
+      if (this.userInfo.password1.length < 6) {
+        this.$message({
+          type: 'error',
+          message: '密码长度不能小于6位！'
+        });
+        this.userInfo.password1 = "";
+        this.userInfo.password2 = "";
+      }
       if (this.userInfo.password1 !== this.userInfo.password2) {
         this.$message({
           type: 'error',

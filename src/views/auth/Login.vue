@@ -56,6 +56,16 @@ export default {
               this.$router.push("/");
             })
           }
+        } else if (_res.code === 'A0000') {
+          this.$message({
+            type: 'error',
+            message: '用户名或密码错误'
+          });
+        } else {
+          this.$message({
+            type: 'error',
+            message: '登录失败'
+          });
         }
       })
       .catch(err => {
